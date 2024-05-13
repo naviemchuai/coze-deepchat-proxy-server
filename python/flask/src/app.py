@@ -31,20 +31,20 @@ def handle_exception(e):
 
 open_ai = OpenAI()
 
-@app.route("/openai-chat", methods=["POST"])
-def openai_chat():
+@app.route("/1938", methods=["POST"])
+def course_1938():
     body = request.json
-    return open_ai.chat(body)
+    return open_ai.chat(body, botID="7342365921484292098")
 
-@app.route("/openai-chat-stream", methods=["POST"])
-def openai_chat_stream():
+@app.route("/1980", methods=["POST"])
+def course_1980():
     body = request.json
-    return open_ai.chat_stream(body)
+    return open_ai.chat(body, botID="7342365921484292098")
 
-@app.route("/openai-image", methods=["POST"])
-def openai_image():
-    files = request.files.getlist("files")
-    return open_ai.image_variation(files)
+@app.route("/1977", methods=["POST"])
+def course_1977():
+    body = request.json
+    return open_ai.chat(body, botID="7342365921484292098")
 
 # ------------------ START SERVER ------------------
 

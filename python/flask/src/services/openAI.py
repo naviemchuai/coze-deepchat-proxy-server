@@ -7,7 +7,7 @@ import os
 
 class OpenAI:
     @staticmethod
-    def create_chat_body(body, stream=False):
+    def create_chat_body(body, botID, stream=False):
         # Text messages are stored inside request body using the Deep Chat JSON format:
         # https://deepchat.dev/docs/connect
         chat_body = {
@@ -17,18 +17,18 @@ class OpenAI:
                     "content": message["text"],
                     "content_type": "text",
                     **({"type": "answer"} if message["role"] == "ai" else {})
-                } for message in body["messages"]
+                } for message in body["messages"][:-1]  # Exclude the last element
             ],
-            "conversation_id": "demo-0",
-            "bot_id": "7342365921484292098",
+            #"conversation_id": "demo-0",
+            "bot_id": botID,
             "user": "demo-user",
-            "query": "what did I ask?"
+            "query": body["messages"][-1]["text"] if body["messages"] else ""  # Use the last element as the query
         }
         if stream:
             chat_body["stream"] = True
         return chat_body
 
-    def chat(self, body):
+    def chat(self, body, botID):
         headers = {
             "Authorization": "Bearer " + os.getenv("OPENAI_API_KEY"),
             "Content-Type": "application/json",
@@ -37,7 +37,8 @@ class OpenAI:
             "Connection": "keep-alive"
 
         }
-        chat_body = self.create_chat_body(body)
+        chat_body = self.create_chat_body(body, botID)
+        print("chat_body", chat_body)
         response = requests.post(
             "https://api.coze.com/open_api/v2/chat", json=chat_body, headers=headers)
         json_response = response.json()
