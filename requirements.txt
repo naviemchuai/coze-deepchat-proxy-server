@@ -7,3 +7,4 @@ Jinja2
 MarkupSafe
 Werkzeug
 requests
+python-dotenv==0.19.1
