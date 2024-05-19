@@ -6,11 +6,8 @@ from flask_cors import CORS
 import os
 
 # ------------------ SETUP ------------------
-
 load_dotenv()
-
 app = Flask(__name__)
-
 # this will need to be reconfigured before taking the app to production
 cors = CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://localhost:3000", "http://coze-deepchat-proxy-server-production.up.railway.app"]}})
 
@@ -42,6 +39,11 @@ def course_1980():
     return open_ai.chat(body, botID="7342365921484292098")
 
 @app.route("/1977", methods=["POST"])
+def course_1977():
+    body = request.json
+    return open_ai.chat(body, botID="7342365921484292098")
+
+@app.route("/", methods=["POST"])
 def course_1977():
     body = request.json
     return open_ai.chat(body, botID="7342365921484292098")
