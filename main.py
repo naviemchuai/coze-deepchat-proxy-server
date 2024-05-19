@@ -44,7 +44,7 @@ def course_1977():
     return open_ai.chat(body, botID="7342365921484292098")
 
 @app.route("/", methods=["POST"])
-def course_1977():
+def course():
     body = request.json
     return open_ai.chat(body, botID="7342365921484292098")
 
