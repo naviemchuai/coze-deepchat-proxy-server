@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # this will need to be reconfigured before taking the app to production
-cors = CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://example.com"]}})
 
 # ------------------ EXCEPTION HANDLERS ------------------
 
