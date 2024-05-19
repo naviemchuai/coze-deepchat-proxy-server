@@ -9,8 +9,7 @@ import os
 load_dotenv()
 app = Flask(__name__)
 # this will need to be reconfigured before taking the app to production
-cors = CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://localhost:3000", "http://coze-deepchat-proxy-server-production.up.railway.app"]}})
-
+CORS(app, resources={r"/*": {"origins": "*"}})
 # ------------------ EXCEPTION HANDLERS ------------------
 
 # Sends response back to Deep Chat using the Response format:
