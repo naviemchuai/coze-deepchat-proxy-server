@@ -3,6 +3,7 @@ from services.openAI import OpenAI
 from flask import Flask, request
 from dotenv import load_dotenv
 from flask_cors import CORS
+import os
 
 # ------------------ SETUP ------------------
 
@@ -11,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # this will need to be reconfigured before taking the app to production
-cors = CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://coze-deepchat-proxy-server-production.up.railway.app"]}})
+cors = CORS(app, resources={r"/*": {"origins": ["http://localhost", "http://coze-deepchat-proxy-server-production.up.railway.app"]}})
 
 # ------------------ EXCEPTION HANDLERS ------------------
 
@@ -55,4 +56,4 @@ def course_1977():
 # ------------------ START SERVER ------------------
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=os.getenv("PORT", default=5000))
