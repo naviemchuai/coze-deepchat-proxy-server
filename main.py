@@ -30,17 +30,17 @@ open_ai = OpenAI()
 @app.route("/1938", methods=["POST"])
 def course_1938():
     body = request.json
-    return open_ai.chat(body, botID="7342365921484292098")
+    return open_ai.chat(body, botID="7369240641248690192")
 
 @app.route("/1980", methods=["POST"])
 def course_1980():
     body = request.json
-    return open_ai.chat(body, botID="7342365921484292098")
+    return open_ai.chat(body, botID="7369239288791924753")
 
 @app.route("/1977", methods=["POST"])
 def course_1977():
     body = request.json
-    return open_ai.chat(body, botID="7342365921484292098")
+    return open_ai.chat(body, botID="7369236869118787600")
 
 # ------------------ START SERVER ------------------
 
