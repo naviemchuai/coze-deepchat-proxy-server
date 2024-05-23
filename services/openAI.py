@@ -8,6 +8,7 @@ import os
 class OpenAI:
     @staticmethod
     def create_chat_body(body, botID, stream=False):
+        print("body", body)
         # Text messages are stored inside request body using the Deep Chat JSON format:
         # https://deepchat.dev/docs/connect
         chat_body = {
@@ -22,7 +23,7 @@ class OpenAI:
             #"conversation_id": "demo-0",
             "bot_id": botID,
             "user": "demo-user",
-            "query": body["messages"][-1]["text"] if body["messages"] else ""  # Use the last element as the query
+            "query": body["messages"][-1]["text"] + "; I am looking at page " + body["page"] if body["messages"] else "",  # Use the last element as the query
         }
         if stream:
             chat_body["stream"] = True
@@ -42,6 +43,7 @@ class OpenAI:
         response = requests.post(
             "https://api.coze.com/open_api/v2/chat", json=chat_body, headers=headers)
         json_response = response.json()
+        print("json_response", json_response)
         if "error" in json_response:
             raise Exception(json_response["error"]["message"])
         messages = json_response["messages"]
@@ -49,7 +51,7 @@ class OpenAI:
             if message["type"] == "answer":
                 result = message["content"]
                 break
-        print(json_response)
+        print("response",json_response)
         # Sends response back to Deep Chat using the Response format:
         # https://deepchat.dev/docs/connect/#Response
         return {"text": result}
